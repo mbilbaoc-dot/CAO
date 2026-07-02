@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, Loader2, Users, GripVertical, Calendar, Trash2, LayoutGrid, Plus } from 'lucide-react';
+import { Search, Loader2, Users, GripVertical, Calendar, Trash2, LayoutGrid, Plus, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabase';
 import { FORMATIONS } from '@/lib/formations';
 import FootballPitch from './FootballPitch';
 import PlayerCard from './PlayerCard';
+import TacticalAnalysisModal from './TacticalAnalysisModal';
 
 interface Player {
   id: string;
@@ -63,6 +64,8 @@ export default function AlineacionBuilder() {
   
   const [activeTab, setActiveTab] = useState<'jugadores' | 'guardadas'>('jugadores');
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
+  
+  const [isAnalysisOpen, setIsAnalysisOpen] = useState(false);
 
   /* ── Derived ── */
   const currentFormation = useMemo(
@@ -616,7 +619,7 @@ export default function AlineacionBuilder() {
         </div>
 
         {/* ── Football Pitch ── */}
-        <div className="flex-1 order-1 lg:order-2 relative min-h-[520px] lg:min-h-0">
+        <div className="flex-1 order-1 lg:order-2 flex flex-col gap-4 relative min-h-[520px] lg:min-h-0">
           <FootballPitch
             formation={formation}
             slots={currentFormation.slots}
@@ -631,8 +634,26 @@ export default function AlineacionBuilder() {
             saveSuccess={saveSuccess}
             canSave={canSave}
           />
+
+          {/* ── AI Analysis Button ── */}
+          <div className="flex justify-center">
+            <button
+              onClick={() => setIsAnalysisOpen(true)}
+              className="flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white rounded-2xl shadow-lg shadow-violet-500/30 transition-all hover:-translate-y-1 active:translate-y-0 active:scale-95 font-extrabold uppercase tracking-wide text-xs md:text-sm"
+            >
+              <Sparkles className="w-5 h-5 text-violet-200" />
+              Analizar con IA los enfrentamientos
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* ── Tactical Analysis Modal ── */}
+      <TacticalAnalysisModal
+        isOpen={isAnalysisOpen}
+        onClose={() => setIsAnalysisOpen(false)}
+        miSistema={formation}
+      />
     </div>
   );
 }

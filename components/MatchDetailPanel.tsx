@@ -21,6 +21,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import MatchEventsPanel from '@/components/MatchEventsPanel';
 
 /* ───── Types ───── */
 interface Team {
@@ -125,7 +126,7 @@ export default function MatchDetailPanel({
   const [isLoading, setIsLoading] = useState(true);
 
   // Main section toggle
-  const [activeSection, setActiveSection] = useState<'informe' | 'plan'>(
+  const [activeSection, setActiveSection] = useState<'informe' | 'plan' | 'eventos'>(
     'informe'
   );
 
@@ -507,6 +508,11 @@ export default function MatchDetailPanel({
               label: 'Plan de Partido',
               icon: Target,
             },
+            {
+              id: 'eventos' as const,
+              label: 'Eventos del Partido',
+              icon: Video,
+            },
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeSection === tab.id;
@@ -847,6 +853,15 @@ export default function MatchDetailPanel({
               )}
             </button>
           </div>
+        </div>
+      )}
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/* EVENTOS DEL PARTIDO                            */}
+      {/* ═══════════════════════════════════════════════ */}
+      {activeSection === 'eventos' && (
+        <div className="animate-fade-in">
+          <MatchEventsPanel matchId={matchId} />
         </div>
       )}
     </div>
