@@ -40,26 +40,17 @@ export default function Sidebar() {
           <div className="flex items-center gap-3">
             {/* Athletic-like Crest SVG (premium soccer badge) */}
             <div className="w-10 h-12 relative flex-shrink-0 drop-shadow-md">
-              <svg viewBox="0 0 100 120" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Shield outer border */}
-                <path d="M50 5 L90 25 V65 C90 95 50 115 50 115 C50 115 10 95 10 65 V25 Z" fill="#b91c1c" stroke="#1e293b" strokeWidth="6" />
-                {/* White stripes on the bottom shield */}
-                <path d="M30 35 V82 C30 92 38 98 42 101 V35 Z" fill="#ffffff" />
-                <path d="M58 35 V101 C62 98 70 92 70 82 V35 Z" fill="#ffffff" />
-                {/* Gold star/accent on center */}
-                <path d="M50 15 L90 15 L50 35 L10 15 Z" fill="#f59e0b" />
-                <circle cx="50" cy="25" r="10" fill="#1e293b" />
-                {/* Inner letters CAO */}
-                <text x="50" y="29" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">CAO</text>
-              </svg>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/escudo.png" 
+                alt="Escudo CAO" 
+                className="w-full h-full object-contain" 
+              />
             </div>
             
             <div className="flex flex-col">
-              <span className="text-[10px] tracking-wider uppercase text-slate-400 dark:text-slate-500 font-semibold leading-tight">
-                Analítica táctica
-              </span>
-              <span className="text-lg font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-none mt-0.5">
-                Plan de Partido
+              <span className="text-lg font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-none">
+                CD AOIZ
               </span>
             </div>
           </div>

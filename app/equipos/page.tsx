@@ -201,14 +201,44 @@ export default function EquiposPage() {
 
   // Delete team
   const handleDeleteTeam = async (id: string) => {
-    if (!confirm('¿Estás seguro de que deseas eliminar este equipo?')) return;
+    if (!confirm('¿Estás seguro de que deseas eliminar este equipo? Se eliminarán también todos los partidos e informes asociados a él.')) return;
     try {
-      const { error } = await supabase
+      // 1. Find all matches where the team participates
+      const { data: matches, error: matchesError } = await supabase
+        .from('partidos')
+        .select('id')
+        .or(`equipo_local_id.eq.${id},equipo_visitante_id.eq.${id}`);
+
+      if (matchesError) throw matchesError;
+
+      if (matches && matches.length > 0) {
+        const matchIds = matches.map(m => m.id);
+
+        // 2. Delete all dependencies for these matches
+        for (const matchId of matchIds) {
+          await supabase.from('plan_partido').delete().eq('partido_id', matchId);
+          await supabase.from('informes_rival').delete().eq('partido_id', matchId);
+          await supabase.from('eventos_partido').delete().eq('partido_id', matchId);
+          await supabase.from('alineaciones').delete().eq('partido_id', matchId);
+          await supabase.from('abp').delete().eq('partido_id', matchId);
+        }
+
+        // 3. Delete matches themselves
+        const { error: deleteMatchesError } = await supabase
+          .from('partidos')
+          .delete()
+          .in('id', matchIds);
+
+        if (deleteMatchesError) throw deleteMatchesError;
+      }
+
+      // 4. Delete the team
+      const { error: deleteTeamError } = await supabase
         .from('equipos')
         .delete()
         .eq('id', id);
 
-      if (error) throw error;
+      if (deleteTeamError) throw deleteTeamError;
       setTeams(teams.filter(t => t.id !== id));
       
       // If deleted team was open in details, close it
@@ -232,7 +262,7 @@ export default function EquiposPage() {
             Gestión
           </span>
           <h1 className="text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mt-1">
-            Equipos ({teams.length})
+            Equipos
           </h1>
         </div>
 
@@ -307,15 +337,6 @@ export default function EquiposPage() {
                 transition={{ duration: 0.25 }}
                 className="bg-card-bg border border-card-border rounded-3xl overflow-hidden flex flex-col group hover:shadow-xl transition-all duration-300 relative"
               >
-                {/* Delete Button top-right */}
-                <button
-                  onClick={() => handleDeleteTeam(team.id)}
-                  className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-slate-900/60 hover:bg-red-600 text-white flex items-center justify-center backdrop-blur-xs transition-colors duration-200 cursor-pointer shadow-xs"
-                  title="Eliminar equipo"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
-
                 {/* Shield Badge Container */}
                 <div className="h-56 bg-slate-50 dark:bg-slate-900/40 overflow-hidden relative flex items-center justify-center p-6 border-b border-slate-100 dark:border-slate-800/40">
                   {team.escudo_url ? (
@@ -332,6 +353,15 @@ export default function EquiposPage() {
                     </div>
                   )}
                 </div>
+
+                {/* Delete Button top-right */}
+                <button
+                  onClick={() => handleDeleteTeam(team.id)}
+                  className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full bg-slate-900/60 hover:bg-red-600 text-white flex items-center justify-center backdrop-blur-xs transition-colors duration-200 cursor-pointer shadow-xs"
+                  title="Eliminar equipo"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
 
                 {/* Team Info details */}
                 <div className="p-5 flex-1 flex flex-col justify-between">

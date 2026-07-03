@@ -185,7 +185,7 @@ export default function PartidosPage() {
             Competición
           </span>
           <h1 className="text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mt-1">
-            Partidos ({partidos.length})
+            Partidos
           </h1>
         </div>
 

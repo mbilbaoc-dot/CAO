@@ -41,21 +41,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between px-2">
             <div className="flex items-center gap-3">
               <div className="w-9 h-11 relative">
-                <svg viewBox="0 0 100 120" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M50 5 L90 25 V65 C90 95 50 115 50 115 C50 115 10 95 10 65 V25 Z" fill="#b91c1c" stroke="#1e293b" strokeWidth="6" />
-                  <path d="M30 35 V82 C30 92 38 98 42 101 V35 Z" fill="#ffffff" />
-                  <path d="M58 35 V101 C62 98 70 92 70 82 V35 Z" fill="#ffffff" />
-                  <path d="M50 15 L90 15 L50 35 L10 15 Z" fill="#f59e0b" />
-                  <circle cx="50" cy="25" r="10" fill="#1e293b" />
-                  <text x="50" y="29" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">CAO</text>
-                </svg>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src="/escudo.png" 
+                  alt="Escudo CAO" 
+                  className="w-full h-full object-contain" 
+                />
               </div>
               <div className="flex flex-col">
-                <span className="text-[9px] uppercase tracking-wider text-slate-400 font-semibold leading-tight">
-                  Analítica táctica
-                </span>
-                <span className="text-base font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-none mt-0.5">
-                  Plan de Partido
+                <span className="text-base font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-none">
+                  CD AOIZ
                 </span>
               </div>
             </div>
@@ -115,14 +110,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <header className="md:hidden flex items-center justify-between px-5 py-4 border-b border-sidebar-border bg-sidebar-bg shrink-0 transition-colors duration-300 z-30">
           <div className="flex items-center gap-3">
             <div className="w-8 h-10 relative">
-              <svg viewBox="0 0 100 120" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 5 L90 25 V65 C90 95 50 115 50 115 C50 115 10 95 10 65 V25 Z" fill="#b91c1c" stroke="#1e293b" strokeWidth="6" />
-                <path d="M30 35 V82 C30 92 38 98 42 101 V35 Z" fill="#ffffff" />
-                <path d="M58 35 V101 C62 98 70 92 70 82 V35 Z" fill="#ffffff" />
-                <path d="M50 15 L90 15 L50 35 L10 15 Z" fill="#f59e0b" />
-                <circle cx="50" cy="25" r="10" fill="#1e293b" />
-                <text x="50" y="29" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">CAO</text>
-              </svg>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/escudo.png" 
+                alt="Escudo CAO" 
+                className="w-full h-full object-contain" 
+              />
             </div>
             <span className="font-extrabold text-lg text-slate-900 dark:text-slate-100 tracking-tight">CAO</span>
           </div>

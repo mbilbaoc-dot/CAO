@@ -835,7 +835,7 @@ export default function MatchEventsPanel({ matchId }: MatchEventsPanelProps) {
                           </div>
                           <button
                             onClick={(e) => deleteEvent(item.id, e)}
-                            className="text-slate-350 hover:text-red-500 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                            className="p-1.5 text-rose-500 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 dark:bg-rose-955/20 dark:hover:bg-rose-900/40 border border-rose-200/50 dark:border-rose-900/30 rounded-xl transition-all cursor-pointer shrink-0 z-10"
                             title="Eliminar"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

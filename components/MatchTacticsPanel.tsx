@@ -1436,7 +1436,8 @@ export default function MatchTacticsPanel({ initialTab = 'informe' }: MatchTacti
                                   e.stopPropagation();
                                   deleteEventLog(log.id);
                                 }}
-                                className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+                                className="p-1.5 text-rose-500 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 dark:bg-rose-955/20 dark:hover:bg-rose-900/40 border border-rose-200/50 dark:border-rose-900/30 rounded-xl transition-all cursor-pointer shrink-0 z-10"
+                                title="Eliminar"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>

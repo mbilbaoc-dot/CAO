@@ -268,7 +268,7 @@ export default function PlantillaPage() {
             Plantilla
           </span>
           <h1 className="text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mt-1">
-            Jugadores ({players.length})
+            Jugadores
           </h1>
         </div>
 
@@ -381,38 +381,38 @@ export default function PlantillaPage() {
                 transition={{ duration: 0.25 }}
                 className="bg-card-bg border border-card-border rounded-3xl overflow-hidden flex flex-col group hover:shadow-xl transition-all duration-300 relative"
               >
+                {/* Player Image */}
+                <div className="h-56 bg-slate-100 dark:bg-slate-900/60 overflow-hidden relative">
+                   {player.foto_url ? (
+                     /* eslint-disable-next-line @next/next/no-img-element */
+                     <img 
+                       src={player.foto_url} 
+                       alt={player.nombre}
+                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                     />
+                   ) : (
+                     <div className="w-full h-full flex flex-col items-center justify-center text-slate-300 dark:text-slate-700 bg-slate-50 dark:bg-slate-900">
+                       <User className="w-20 h-20 stroke-[1.2px]" />
+                       <span className="text-xs font-semibold text-slate-400 mt-2">Sin foto</span>
+                     </div>
+                   )}
+                   
+                   {/* Dorsal overlay */}
+                   {player.dorsal !== null && (
+                     <span className="absolute bottom-3 left-3 bg-slate-900/75 text-white font-extrabold text-xs px-2.5 py-1 rounded-lg backdrop-blur-xs">
+                       #{player.dorsal} {player.demarcacion}
+                     </span>
+                   )}
+                </div>
+
                 {/* Delete Button top-right */}
                 <button
                   onClick={() => handleDeletePlayer(player.id)}
-                  className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-slate-900/60 hover:bg-red-600 text-white flex items-center justify-center backdrop-blur-xs transition-colors duration-200 cursor-pointer shadow-xs"
+                  className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full bg-slate-900/60 hover:bg-red-600 text-white flex items-center justify-center backdrop-blur-xs transition-colors duration-200 cursor-pointer shadow-xs"
                   title="Eliminar jugador"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
-
-                {/* Player Image */}
-                <div className="h-56 bg-slate-100 dark:bg-slate-900/60 overflow-hidden relative">
-                  {player.foto_url ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img 
-                      src={player.foto_url} 
-                      alt={player.nombre}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center text-slate-300 dark:text-slate-700 bg-slate-50 dark:bg-slate-900">
-                      <User className="w-20 h-20 stroke-[1.2px]" />
-                      <span className="text-xs font-semibold text-slate-400 mt-2">Sin foto</span>
-                    </div>
-                  )}
-                  
-                  {/* Dorsal overlay */}
-                  {player.dorsal !== null && (
-                    <span className="absolute bottom-3 left-3 bg-slate-900/75 text-white font-extrabold text-xs px-2.5 py-1 rounded-lg backdrop-blur-xs">
-                      #{player.dorsal} {player.demarcacion}
-                    </span>
-                  )}
-                </div>
 
                 {/* Player Details */}
                 <div className="p-5 flex-1 flex flex-col justify-between">
